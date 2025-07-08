@@ -77,12 +77,10 @@ def ask_question(qa_chain, question):
 
 # Example usage
 if __name__ == "__main__":
-    # Replace with your PDF path
-    pdf_path = "gasbill.pdf"
     
     try:
         # Create RAG system
-        qa_chain = create_rag_system(pdf_path)
+        qa_chain = create_rag_system(os.path.join(os.path.dirname(__file__), "gasbill.pdf"))
         
         print("\n" + "="*80)
         print("RAG System Ready! Type your questions below.")
