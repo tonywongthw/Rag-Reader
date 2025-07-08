@@ -84,20 +84,31 @@ if __name__ == "__main__":
         # Create RAG system
         qa_chain = create_rag_system(pdf_path)
         
-        # Ask questions
-        questions = [
-            "What is the main topic of this document?",
-            "Can you summarize the key points?",
-            "What are the conclusions mentioned?"
-        ]
+        print("\n" + "="*80)
+        print("RAG System Ready! Type your questions below.")
+        print("Type 'quit' or 'exit' to stop.")
+        print("="*80)
         
-        for question in questions:
-            ask_question(qa_chain, question)
-            print("=" * 80)
+        # Interactive question loop
+        while True:
+            question = input("\nYour question: ").strip()
             
+            if question.lower() in ['quit', 'exit', 'q']:
+                print("Goodbye!")
+                break
+                
+            if not question:
+                print("Please enter a question.")
+                continue
+                
+            ask_question(qa_chain, question)
+            print("-" * 80)
+            
+    except KeyboardInterrupt:
+        print("\nExiting...")
     except Exception as e:
         print(f"Error: {e}")
         print("Make sure you have:")
-        print("1. Set your OpenAI API key")
-        print("2. Installed required packages: pip install langchain openai faiss-cpu pypdf")
+        print("1. Created a .env file with OPENAI_API_KEY=your-api-key")
+        print("2. Installed required packages: pip install langchain openai faiss-cpu pypdf python-dotenv")
         print("3. Provided a valid PDF path")
